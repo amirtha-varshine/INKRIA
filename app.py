@@ -10,7 +10,11 @@ from dotenv import load_dotenv
 load_dotenv()
 
 app = Flask(__name__)
-CORS(app)
+CORS(app, origins=[
+    "https://amirtha-varshine.github.io",
+    "http://127.0.0.1:5000",
+    "http://localhost:5000"
+])
 
 # FIX 1: Fail gracefully if environment variable is missing
 GOOGLE_API_KEY = os.environ.get("GOOGLE_API_KEY")
