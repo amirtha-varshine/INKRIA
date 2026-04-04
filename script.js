@@ -1,6 +1,6 @@
 document.addEventListener('DOMContentLoaded', () => {
 
-    const API_BASE = 'http://127.0.0.1:5000/api';
+    const API_BASE = 'https://web-production-92dbd7.up.railway.app/api';
 
     if (window.pdfjsLib) {
         pdfjsLib.GlobalWorkerOptions.workerSrc =
