@@ -71,9 +71,15 @@ document.addEventListener('DOMContentLoaded', () => {
             const mmId = 'mermaid-' + Math.random().toString(36).substr(2, 5);
             
             // Clean up the code to ensure it's valid mermaid syntax
-            let diagram = mermaidCode.replace(/```mermaid/g, '').replace(/```/g, '').trim();
-            if(!diagram.startsWith('mindmap')) {
-                diagram = 'mindmap\n' + diagram;
+           let diagram = mermaidCode
+              .replace(/```mermaid/g, '')
+              .replace(/```/g, '')
+              .trim();
+
+            diagram = diagram.replace(/\{([^}]+)\}/g, '($1)');
+
+            if (!diagram.startsWith('mindmap')) {
+              diagram = 'mindmap\n' + diagram;
             }
 
             const { svg } = await window.mermaid.render(mmId, diagram);
