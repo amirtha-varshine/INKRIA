@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>INKRIA - AI Note Generator</title>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="style.css">
+    
+    <!-- ADDED: Libraries for Markdown formatting and Mermaid graphical Mind Maps -->
+    <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
+    <script type="module">
+        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
+        
+        // Custom theme to ensure mindmaps have contrasting shape/border colors and are not clumped
+        mermaid.initialize({ 
+            startOnLoad: false, 
+            theme: 'default',
+            themeVariables: {
+                fontFamily: 'Nunito, sans-serif',
+                fontSize: '18px',  // Larger font for clarity
+                lineColor: '#1A2980', // Dark contrast for connections
+                primaryColor: '#26D0CE', 
+                secondaryColor: '#a264ea',
+                tertiaryColor: '#ff9a9e'
+            },
+            mindmap: {
+                padding: 25, // More padding to avoid clumping
+                maxNodeWidth: 250 // forces text to wrap instead of continuing into a giant noodle
+            }
+        });
+        window.mermaid = mermaid;
+    </script>
+</head>
+<body>
+    <div class="app-container">
+        <!-- Header Section -->
+        <header class="header">
+            <div class="logo-container">
+                <i class="fa-solid fa-brain logo-icon"></i>
+                <h1 class="logo-text">INKRIA</h1>
+            </div>
+            <p class="subtitle">Advanced AI-powered note generation with deep search and analysis</p>
+        </header>
+        <!-- Navigation Tabs -->
+        <nav class="tabs-container">
+            <button class="tab-btn active" data-tab="auto-generation">
+                <i class="fa-solid fa-wand-magic-sparkles"></i> Auto Generation
+            </button>
+            <button class="tab-btn" data-tab="pdf-processing">
+                <i class="fa-solid fa-file-pdf"></i> PDF Processing
+            </button>
+            <button class="tab-btn" data-tab="summarizer">
+                <i class="fa-solid fa-compress"></i> Content Summarizer
+            </button>
+            <button class="tab-btn" data-tab="mind-maps">
+                <i class="fa-solid fa-project-diagram"></i> Mind Maps
+            </button>
+            <button class="tab-btn" data-tab="deep-analysis">
+                <i class="fa-solid fa-chart-line"></i> Deep Analysis
+            </button>
+        </nav>
+        <!-- Main Content Area -->
+        <main class="main-card">
+            <!-- Tab 1: Auto Generation -->
+            <section id="auto-generation" class="tab-content active">
+                <h2 class="section-title">Automatic Note Generation</h2>
+                <p class="section-desc">Enter any text or topic and get comprehensive AI-generated notes.</p>
+                <div class="input-group">
+                    <p class="input-label">Input Text or Topic:</p>
+                    <textarea id="topic-input" placeholder="Enter text or a topic e.g. 'Photosynthesis', 'World War II'..."></textarea>
+                </div>
+                <div class="options-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-summary" checked>
+                        <span class="checkmark"></span>
+                        Include Summary
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-analysis" checked>
+                        <span class="checkmark"></span>
+                        Include Analysis
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-mindmap" checked>
+                        <span class="checkmark"></span>
+                        Include Mind Map
+                    </label>
+                </div>
+                <button id="btn-auto-gen" class="action-btn">
+                    <i class="fa-solid fa-gear"></i> Generate Notes
+                </button>
+                <div id="res-auto-gen" class="result-box"></div>
+            </section>
+            <!-- Tab 2: PDF Processing -->
+            <section id="pdf-processing" class="tab-content">
+                <h2 class="section-title">PDF Document to Notes</h2>
+                <p class="section-desc">Upload a PDF to extract key points and generate structured notes.</p>
+                <div class="upload-area" id="upload-area">
+                    <i class="fa-solid fa-cloud-arrow-up upload-icon"></i>
+                    <p>Drag and drop your PDF here, or <span class="browse-link">browse</span></p>
+                    <p class="file-hint">Supported formats: PDF (Max 50MB)</p>
+                    <input type="file" id="file-upload" class="visually-hidden" accept=".pdf">
+                </div>
+                <button id="btn-pdf" class="action-btn mt-4">
+                    <i class="fa-solid fa-gear"></i> Process Document
+                </button>
+                <div id="res-pdf" class="result-box"></div>
+            </section>
+            <!-- Tab 3: Content Summarizer -->
+            <section id="summarizer" class="tab-content">
+                <h2 class="section-title">Content Summarizer</h2>
+                <p class="section-desc">Paste long articles or text blocks to get crisp, concise summaries.</p>
+                <div class="input-group">
+                    <p class="input-label">Long Form Content:</p>
+                    <textarea id="summary-input" placeholder="Paste your long text here..."></textarea>
+                </div>
+                <div class="summary-options">
+                    <p class="input-label">Summary Length:</p>
+                    <div class="radio-group">
+                        <label><input type="radio" name="length" value="short"> Short (Bullet points)</label>
+                        <label><input type="radio" name="length" value="medium" checked> Medium (Paragraphs)</label>
+                        <label><input type="radio" name="length" value="long"> Detailed Review</label>
+                    </div>
+                </div>
+                <button id="btn-summary" class="action-btn mt-4">
+                    <i class="fa-solid fa-compress"></i> Summarize Content
+                </button>
+                <div id="res-summary" class="result-box"></div>
+            </section>
+            <!-- Tab 4: Mind Maps -->
+            <section id="mind-maps" class="tab-content">
+                <h2 class="section-title">Mind Map Creator</h2>
+                <p class="section-desc">Generate visual mind maps from topics or pasted content.</p>
+                <div class="input-group">
+                    <p class="input-label">Source Content / Topic:</p>
+                    <textarea id="mindmap-input" placeholder="Enter topic or paste text to visualize..."></textarea>
+                </div>
+                <button id="btn-mindmap" class="action-btn mt-4">
+                    <i class="fa-solid fa-project-diagram"></i> Generate Mind Map
+                </button>
+                <div id="res-mindmap" class="result-box"></div>
+            </section>
+            <!-- Tab 5: Deep Analysis -->
+            <section id="deep-analysis" class="tab-content">
+                <h2 class="section-title">Deep Analysis & Expanded Notes</h2>
+                <p class="section-desc">Provide a subject for comprehensive, expanded research and critical analysis.</p>
+                <div class="input-group">
+                    <p class="input-label">Subject for Deep Dive:</p>
+                    <textarea id="analysis-input" placeholder="E.g., The impact of quantum computing on modern cryptography..."></textarea>
+                </div>
+                <div class="options-group">
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-historical" checked>
+                        <span class="checkmark"></span>
+                        Historical Context
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-future" checked>
+                        <span class="checkmark"></span>
+                        Future Implications
+                    </label>
+                    <label class="checkbox-container">
+                        <input type="checkbox" id="chk-sources">
+                        <span class="checkmark"></span>
+                        Cite Sources
+                    </label>
+                </div>
+                <button id="btn-analysis" class="action-btn mt-4">
+                    <i class="fa-solid fa-microscope"></i> Run Deep Analysis
+                </button>
+                <div id="res-analysis" class="result-box"></div>
+            </section>
+        </main>
+    </div>
+    <!-- PDF.js for reading PDFs client-side -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html>
