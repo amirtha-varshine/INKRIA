@@ -10,28 +10,9 @@
     
     <!-- ADDED: Libraries for Markdown formatting and Mermaid graphical Mind Maps -->
     <script src="https://cdn.jsdelivr.net/npm/marked/marked.min.js"></script>
-    <script type="module">
-        import mermaid from 'https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.esm.min.mjs';
-        
-        // Custom theme to ensure mindmaps have contrasting shape/border colors and are not clumped
-        mermaid.initialize({ 
-            startOnLoad: false, 
-            theme: 'default',
-            themeVariables: {
-                fontFamily: 'Nunito, sans-serif',
-                fontSize: '18px',  // Larger font for clarity
-                lineColor: '#1A2980', // Dark contrast for connections
-                primaryColor: '#26D0CE', 
-                secondaryColor: '#a264ea',
-                tertiaryColor: '#ff9a9e'
-            },
-            mindmap: {
-                padding: 25, // More padding to avoid clumping
-                maxNodeWidth: 250 // forces text to wrap instead of continuing into a giant noodle
-            }
-        });
-        window.mermaid = mermaid;
-    </script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/d3/7.8.5/d3.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-lib"></script>
+    <script src="https://cdn.jsdelivr.net/npm/markmap-view"></script>
 </head>
 <body>
     <div class="app-container">
@@ -40,6 +21,9 @@
             <div class="logo-container">
                 <i class="fa-solid fa-brain logo-icon"></i>
                 <h1 class="logo-text">INKRIA</h1>
+                <button id="theme-toggle" class="theme-toggle-btn" title="Toggle Dark Mode">
+                    <i class="fa-solid fa-moon"></i>
+                </button>
             </div>
             <p class="subtitle">Advanced AI-powered note generation with deep search and analysis</p>
         </header>
@@ -88,7 +72,14 @@
                         Include Mind Map
                     </label>
                 </div>
-                <button id="btn-auto-gen" class="action-btn">
+                <div class="options-group" style="margin-top: 15px; border-top: 1px solid #e2e8f0; padding-top: 15px;">
+                    <p class="input-label" style="margin-bottom:8px; font-size:0.9rem;">Mind Map Detail Level:</p>
+                    <div class="radio-group" style="display:flex; gap:15px; padding-bottom:5px;">
+                        <label><input type="radio" name="auto-mm-level" value="precise" checked> Precise</label>
+                        <label><input type="radio" name="auto-mm-level" value="detailed"> Detailed</label>
+                    </div>
+                </div>
+                <button id="btn-auto-gen" class="action-btn" style="margin-top: 10px;">
                     <i class="fa-solid fa-gear"></i> Generate Notes
                 </button>
                 <div id="res-auto-gen" class="result-box"></div>
@@ -136,6 +127,13 @@
                 <div class="input-group">
                     <p class="input-label">Source Content / Topic:</p>
                     <textarea id="mindmap-input" placeholder="Enter topic or paste text to visualize..."></textarea>
+                </div>
+                <div class="summary-options" style="margin-top:20px;">
+                    <p class="input-label">Mind Map Detail Level:</p>
+                    <div class="radio-group">
+                        <label><input type="radio" name="mm-level" value="precise" checked> Precise (Short & Crisp)</label>
+                        <label><input type="radio" name="mm-level" value="detailed"> Detailed (Deep & Expansive)</label>
+                    </div>
                 </div>
                 <button id="btn-mindmap" class="action-btn mt-4">
                     <i class="fa-solid fa-project-diagram"></i> Generate Mind Map

@@ -304,3 +304,76 @@ textarea:focus {
     white-space: pre-wrap;
     word-break: break-word;
 }
+/* ─── DARK MODE STYLES ─── */
+body.dark-mode {
+    --primary: #818cf8;
+    --primary-dark: #6366f1;
+    --accent: #c084fc;
+    --text-main: #f8fafc;
+    --text-muted: #cbd5e1;
+    --bg-glass: rgba(15, 23, 42, 0.85);
+    --bg-glass-heavy: rgba(15, 23, 42, 0.98);
+    --border-glass: rgba(255, 255, 255, 0.1);
+    --shadow-glass: 0 8px 32px 0 rgba(0, 0, 0, 0.5);
+    background: linear-gradient(-45deg, #020617, #0f172a, #1e1b4b, #172554) !important;
+    background-size: 400% 400% !important;
+}
+body.dark-mode textarea,
+body.dark-mode input {
+    background: rgba(30, 41, 59, 0.8) !important;
+    border-color: #334155 !important;
+    color: var(--text-main) !important;
+}
+body.dark-mode textarea:focus {
+    background: rgba(30, 41, 59, 1) !important;
+    box-shadow: 0 0 0 4px rgba(129, 140, 248, 0.2) !important;
+}
+body.dark-mode .upload-area {
+    background: rgba(30, 41, 59, 0.5);
+    border-color: #475569;
+}
+body.dark-mode .upload-area:hover {
+    background: rgba(30, 41, 59, 0.9);
+}
+body.dark-mode .tab-btn {
+    background: rgba(15, 23, 42, 0.4);
+    border-color: rgba(255, 255, 255, 0.1);
+}
+body.dark-mode .tab-btn.active {
+    background: linear-gradient(135deg, #334155, #0f172a);
+    color: #e0e7ff;
+}
+body.dark-mode .result-content {
+    color: #e2e8f0;
+}
+body.dark-mode .result-box h3 {
+    border-bottom: 2px solid #334155;
+}
+body.dark-mode .mermaid-container {
+    background: #0f172a !important;
+    border-color: #334155 !important;
+}
+body.dark-mode .mindmap-tree {
+    background: #1e293b;
+    border-color: #334155;
+    color: #f8fafc;
+}
+/* Dark Mode Toggle Button */
+.theme-toggle-btn {
+    background: rgba(255, 255, 255, 0.2);
+    border: 1px solid rgba(255, 255, 255, 0.4);
+    color: white;
+    cursor: pointer;
+    font-size: 1.25rem;
+    padding: 0.5rem 1rem;
+    border-radius: 99px;
+    margin-left: 1rem;
+    transition: all 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+}
+.theme-toggle-btn:hover {
+    background: rgba(255, 255, 255, 0.4);
+    transform: scale(1.05);
+}
